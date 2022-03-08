@@ -21,7 +21,6 @@ const checkApiKey = (key, res) => {
 app.route('/videos')
     .get((req, res) => {
         console.log(`GET: on /videos`);
-
         checkApiKey(req.query.api_key, res)
             .then((response) => {
                 fs.readFile('./data/videos.json', (_err, data) => {
@@ -31,7 +30,6 @@ app.route('/videos')
                             message: 'No videos found'
                         });
                     }
-        
                     let response = videos.map(video => {
                         return {
                             id: video.id,
@@ -44,9 +42,8 @@ app.route('/videos')
                 })
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.statusMessage)
             })
-
     })
     .post((req, res) => {
         console.log(`POST: on /videos`);
@@ -55,7 +52,7 @@ app.route('/videos')
                 res.status(200).json('post a video')
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.statusMessage)
             })
     })
 
@@ -77,9 +74,8 @@ app.route('/videos/:id')
                 })
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.statusMessage)
             }) 
-
     })
 
 app.route('/register')
