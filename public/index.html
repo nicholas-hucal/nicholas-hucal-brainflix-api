@@ -11,17 +11,6 @@
 
 <body>
     <h1>BrainFlix API</h1>
-    <h2 id="overview">Overview</h2>
-    <ul>
-        <li>The url for the API is <code>https://project-2-api.herokuapp.com</code></li>
-        <li>Every &quot;video&quot; object will contain unique details however the video link will be the same</li>
-        <li>The API comes seeded with a list of videos<ul>
-                <li>Each seeded video will contain three default comments</li>
-            </ul>
-        </li>
-        <li><strong>Note:</strong> This API has a temporary memory. It may restart intermittently and forget all videos
-            and comments that you have created (except for the three default comments)</li>
-    </ul>
     <h2 id="authentication">Authentication</h2>
     <ul>
         <li>To register with the API and get a key, make a GET request to <code>/register</code>
@@ -31,22 +20,21 @@
             </ul>
         </li>
         <li>You must append <code>?api_key=&lt;your_api_key_here&gt;</code> to each of your API request URLs (except for
-            <code>/register</code>)</li>
+            <code>/register</code>)
+        </li>
     </ul>
     <h2 id="api-errors">API Errors</h2>
-    <ul>
-        <li>This API may return a 400 or 404 error<h4 id="example-error-body">Example error body</h4>
+    This API may return a 400, 401, 403 or 404 error<h4 id="example-error-body">Example error body</h4>
             <pre><code class="lang-json">{
     <span class="hljs-attr">"message"</span>: <span class="hljs-string">"No video with that id exists"</span>
     }
     </code></pre>
-        </li>
-    </ul>
     <h2 id="routes">Routes</h2>
     <h3 id="get-videos-">GET <code>/videos</code></h3>
     <ul>
         <li>Returns an array of video objects </li>
-        <li>Contains only enough information to display in side bar<h4 id="response-body-example">Response body example
+    </ul>
+        Contains only enough information to display in side bar<h4 id="response-body-example">Response body example
             </h4>
             <pre><code class="lang-json">[
       {   
@@ -63,8 +51,6 @@
       }
     ]
     </code></pre>
-        </li>
-    </ul>
     <h3 id="get-videos-id-">GET <code>/videos/:id</code></h3>
     <ul>
         <li><code>:id</code> must be swapped out with the id of a video as found in the list of videos</li>
@@ -72,7 +58,8 @@
                 <li>Details include the list of comments for that video</li>
             </ul>
         </li>
-        <li>Example response body
+    </ul>
+        Example response body
             <pre><code class="lang-json">{ 
           <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1af0jruup5gu"</span>,
           <span class="hljs-attr">"title"</span>: <span class="hljs-string">"BMX Rampage: 2018 Highlights"</span>,
@@ -109,8 +96,7 @@
           ] 
       }
     </code></pre>
-        </li>
-    </ul>
+        
     <h2 id="the-following-endpoints-are-not-required-to-satisfy-the-requirements-of-sprint-2">The following endpoints
         are not required to satisfy the requirements of sprint 2</h2>
     <h3 id="post-videos-id-comments-">POST <code>/videos/:id/comments</code></h3>
@@ -124,7 +110,8 @@
     }
     </code></pre>
         </li>
-        <li>response body example
+    </ul>
+        response body example
             <pre><code>{
     <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Nigel"</span>,
     <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"This is a test"</span>,
@@ -132,8 +119,7 @@
     <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1531857374673</span>
     }
     </code></pre>
-        </li>
-    </ul>
+    
     <h3 id="delete-videos-videoid-comments-commentid-">DELETE <code>/videos/:videoId/comments/:commentId</code></h3>
     <ul>
         <li>Deletes the given comment and returns it in the response body</li>
@@ -142,7 +128,8 @@
             comments for the given video</li>
         <li><strong>this endpoint is not mandatory</strong>. It is present for those interested in clearing out comments
             or going beyond the assignment requirements</li>
-        <li>Response body example
+        </ul>
+        Response body example
             <pre><code>{
       <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ian"</span>,
       <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"You could make $5000 a day too!"</span>,
@@ -150,8 +137,7 @@
       <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1530744338878</span>
     }
     </code></pre>
-        </li>
-    </ul>
-</body>
+        
+    </body>
 
 </html>
