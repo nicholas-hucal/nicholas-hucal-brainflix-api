@@ -9,7 +9,7 @@ const getVideos = () => {
 
 router
     .route('/')
-        .get((req, res) => {
+        .get((_req, res) => {
             console.log(`GET: on /videos`);
             let response = getVideos().map(video => {
                 return {
