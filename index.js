@@ -1,25 +1,15 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs');
+const responses = require('./responses/responses.js');
+const apiKeyModel = require('./model/api-key-model.js')
 const app = express();
 
 const authenticate = (apiKey, res, next) => {
-    if (!apiKey) {
-        return res.status(401).send({
-            message: "Not Authorized"
-        })
+    if (!apiKey || !apiKeyModel.getOne(apiKey)) {
+        return responses.notAuthorized(res);
     } 
-    fs.readFile('./data/api_keys.json', (_err, data) => {
-        const existing = JSON.parse(data)
-        const found = existing.find(ex => String(ex) === String(apiKey))
-        if (!found) {    
-            return res.status(401).send({
-                message: "Not Authorized"
-            })
-        } 
-        next()
-    })
+    next();
 }
 
 //MIDDLEWARE
