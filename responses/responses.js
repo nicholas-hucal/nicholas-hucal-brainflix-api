@@ -15,3 +15,11 @@ exports.notFound = (res) => {
         message: "Not Found"
     });
 }
+
+exports.created = (res, details) => {
+    return res.status(201).json(details);
+}
+
+exports.success = (res, details) => {
+    return res.status(200).json(details);
+}

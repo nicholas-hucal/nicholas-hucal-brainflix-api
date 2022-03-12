@@ -1,47 +1,61 @@
 const express = require('express');
 const router = express.Router();
+const { success, created, notAuthorized, notFound, forbidden} = require('../responses/responses.js');
 const fs = require('fs');
-
-const getVideos = () => {
-    const videos = fs.readFileSync('./data/videos.json');
-    return JSON.parse(videos)
-}
+const { getVideo, getVideoList, addComment, deleteComment } = require('../model/videos-model.js')
 
 router
     .route('/')
         .get((_req, res) => {
-            console.log(`GET: on /videos`);
-            let response = getVideos().map(video => {
-                return {
-                    id: video.id,
-                    title: video.title,
-                    image: video.image,
-                    channel: video.channel
-                }
-            })
+            let response = getVideoList()
             if (!response) {
-                res.status(404).json({
-                    message: 'videos not found'
-                })
+                notFound(res);
+            } else {
+                success(res, response);
             }
-            res.status(200).send(response);
         })
         .post((req, res) => {
-            console.log(`POST: on /videos`);
-            res.status(200).json('post a video')
+            success(res, {message: 'post a video'})
         })
 
 router
     .route('/:id')
         .get((req, res) => {
-            console.log(`GET: on /videos/:id`);
-            const video = getVideos().find(video => video.id === req.params.id);
+            const video = getVideo(req.params.id);
             if (!video) {
-                res.status(404).json({
-                    message: 'video not found'
-                })
+                notFound(res);
+            } else {
+                success(res, video);
             }
-            res.status(200).json(video);
         })
+
+router
+    .route('/:id/comments')
+    .post((req, res) => {
+        const videoId = req.params.id;
+        const comment = req.body;
+        if (comment && videoId) {
+            addComment(comment, videoId)
+            created(res, {
+                'message': 'comment created'
+            });
+        } else {
+            notFound(res);
+        }
+    })
+
+router
+    .route('/:id/comments/:commentId')
+    .delete((req, res) => {
+        const { id, commentId } = req.params
+        if (commentId && id) {
+            deleteComment(commentId, id);
+            success(res, {
+                'message': 'comment deleted'
+            });
+        } else {
+            notFound(res)
+        }
+    })
 
 module.exports = router;
