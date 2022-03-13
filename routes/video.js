@@ -3,7 +3,7 @@ const multer = require('multer');
 const fs = require('fs');
 const router = express.Router();
 const { success, created, notAuthorized, notFound, forbidden } = require('../responses/responses.js');
-const { getVideo, getVideoList, addVideo, addComment, deleteComment } = require('../model/videos-model.js')
+const { getVideo, getVideoList, addVideo, addComment, deleteComment, updateViews, updateLikes } = require('../model/videos-model.js')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images/')
@@ -58,6 +58,30 @@ router
             created(res, {
                 'message': 'comment created'
             });
+        } else {
+            notFound(res);
+        }
+    })
+
+router
+    .route('/:id/views')
+    .put((req, res) => {
+        const videoId = req.params.id;
+        if (videoId) {
+            const video = updateViews(videoId)
+            created(res, video);
+        } else {
+            notFound(res);
+        }
+    })
+
+router
+    .route('/:id/likes')
+    .put((req, res) => {
+        const videoId = req.params.id;
+        if (videoId) {
+            const video = updateLikes(videoId)
+            created(res, video);
         } else {
             notFound(res);
         }

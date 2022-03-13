@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
@@ -19,11 +20,11 @@ const getVideoList = () => {
 
 const randomVideoList = () => {
     return [
-        'http://localhost:8080/videos/coding',
-        'http://localhost:8080/videos/hike',
-        'http://localhost:8080/videos/painting',
-        'http://localhost:8080/videos/roadtrip',
-        'http://localhost:8080/videos/travel',
+        `http://localhost:${process.env.PORT}/videos/coding`,
+        `http://localhost:${process.env.PORT}/videos/hike`,
+        `http://localhost:${process.env.PORT}/videos/painting`,
+        `http://localhost:${process.env.PORT}/videos/roadtrip`,
+        `http://localhost:${process.env.PORT}/videos/travel`,
     ]
 }
 
@@ -40,10 +41,10 @@ const addVideo = (video, file) => {
     const newVideo = {
         "title": video.title,
         "channel": "MohanMuruge",
-        "image": 'http://localhost:8080/images/' + file.filename,
+        "image": `http://localhost:${process.env.PORT}/images/` + file.filename,
         "description" : video.description,
-        "views": 0,
-        "likes": 0,
+        "views": "0",
+        "likes": "0",
         "duration": "2:43",
         "video": getRandomVideoLink(),
         "timestamp": Date.now(),
@@ -55,6 +56,21 @@ const addVideo = (video, file) => {
     fs.writeFileSync('./data/videos.json', JSON.stringify(existing));
 }
 
+const updateViews = (videoId) => {
+    const existing = getVideos();
+    const foundIndex = existing.findIndex(ex => ex.id === videoId);
+    existing[foundIndex].views = numberWithCommas(stripCommas(existing[foundIndex].views) + 1);
+    fs.writeFileSync('./data/videos.json', JSON.stringify(existing));
+    return existing[foundIndex];
+}
+
+const updateLikes = (videoId) => {
+    const existing = getVideos();
+    const foundIndex = existing.findIndex(ex => ex.id === videoId);
+    existing[foundIndex].likes = numberWithCommas(stripCommas(existing[foundIndex].likes) + 1);
+    fs.writeFileSync('./data/videos.json', JSON.stringify(existing));
+    return existing[foundIndex];
+}
 
 const addComment = (comment, videoId) => {
     const toSend = {
@@ -63,7 +79,7 @@ const addComment = (comment, videoId) => {
         "comment": comment.comment,
         "likes": 0,
         "timestamp": Date.now(),
-        "avatar": "http://localhost:8080/avatars/Mohan-muruge.jpg"
+        "avatar": `http://localhost:${process.env.PORT}/avatars/Mohan-muruge.jpg`
     }
     const existing = getVideos();
     const foundIndex = existing.findIndex(ex => ex.id === videoId);
@@ -94,6 +110,14 @@ const addCommentIds = () => {
     fs.writeFileSync('./data/videos.json', JSON.stringify(withIds));
 }
 
+const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const stripCommas = (x) => {
+    return Number(x.replace(/\D/g,''));
+}
+
 exports.getVideos = getVideos;
 exports.addVideo = addVideo;
 exports.addCommentIds = addCommentIds;
@@ -101,3 +125,5 @@ exports.getVideoList = getVideoList;
 exports.getVideo = getVideo;
 exports.addComment = addComment;
 exports.deleteComment = deleteComment;
+exports.updateViews = updateViews;
+exports.updateLikes = updateLikes;
