@@ -6,10 +6,6 @@ const getVideos = () => {
     return JSON.parse(videos)
 }
 
-const getVideo = (id) => {
-    return getVideos().find(video => video.id === id);
-}
-
 const getVideoList = () => {
     return getVideos().map(video => {
         return {
@@ -20,6 +16,45 @@ const getVideoList = () => {
         }
     })
 }
+
+const randomVideoList = () => {
+    return [
+        'http://localhost:8080/videos/coding',
+        'http://localhost:8080/videos/hike',
+        'http://localhost:8080/videos/painting',
+        'http://localhost:8080/videos/roadtrip',
+        'http://localhost:8080/videos/travel',
+    ]
+}
+
+const getRandomVideoLink = () => {
+    const videos = randomVideoList();
+    return videos[Math.floor(Math.random()*videos.length)]
+}
+
+const getVideo = (id) => {
+    return getVideos().find(video => video.id === id);
+}
+
+const addVideo = (video, file) => {
+    const newVideo = {
+        "title": video.title,
+        "channel": "MohanMuruge",
+        "image": 'http://localhost:8080/images/' + file.filename,
+        "description" : video.description,
+        "views": 0,
+        "likes": 0,
+        "duration": "2:43",
+        "video": getRandomVideoLink(),
+        "timestamp": Date.now(),
+        "comments": [],
+        "id": uuidv4()
+    }
+    const existing = getVideos();
+    existing.unshift(newVideo);
+    fs.writeFileSync('./data/videos.json', JSON.stringify(existing));
+}
+
 
 const addComment = (comment, videoId) => {
     const toSend = {
@@ -60,6 +95,7 @@ const addCommentIds = () => {
 }
 
 exports.getVideos = getVideos;
+exports.addVideo = addVideo;
 exports.addCommentIds = addCommentIds;
 exports.getVideoList = getVideoList;
 exports.getVideo = getVideo;
