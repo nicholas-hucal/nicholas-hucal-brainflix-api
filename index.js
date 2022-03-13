@@ -5,6 +5,7 @@ const responses = require('./responses/responses.js');
 const apiKeyModel = require('./model/api-key-model.js');
 const app = express();
 
+//AUTH APIKEYS
 const authenticate = (apiKey, res, next) => {
     if (!apiKey || !apiKeyModel.getOne(apiKey)) {
         return responses.notAuthorized(res);

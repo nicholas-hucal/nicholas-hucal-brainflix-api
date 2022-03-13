@@ -1,5 +1,4 @@
 const fs = require('fs');
-const responses = require('../responses/responses.js');
 const { v4: uuidv4 } = require('uuid');
 
 const getAll = () => {

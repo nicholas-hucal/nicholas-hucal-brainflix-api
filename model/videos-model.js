@@ -110,6 +110,19 @@ const addCommentIds = () => {
     fs.writeFileSync('./data/videos.json', JSON.stringify(withIds));
 }
 
+const doSearch = (search) => {
+    const all = getVideos();
+    const result = all.filter(video => {
+        const title = video.title.toLowerCase().includes(search.search.toLowerCase());
+        const channel = video.channel.toLowerCase().includes(search.search.toLowerCase());
+        const desc = video.description.toLowerCase().includes(search.search.toLowerCase());
+        if (title || channel || desc) {
+            return video;
+        }
+    })
+    return result;
+}
+
 const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -127,3 +140,4 @@ exports.addComment = addComment;
 exports.deleteComment = deleteComment;
 exports.updateViews = updateViews;
 exports.updateLikes = updateLikes;
+exports.doSearch = doSearch;

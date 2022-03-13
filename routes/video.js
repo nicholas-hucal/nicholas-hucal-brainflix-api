@@ -3,7 +3,7 @@ const multer = require('multer');
 const fs = require('fs');
 const router = express.Router();
 const { success, created, notAuthorized, notFound, forbidden } = require('../responses/responses.js');
-const { getVideo, getVideoList, addVideo, addComment, deleteComment, updateViews, updateLikes } = require('../model/videos-model.js')
+const { getVideo, getVideoList, addVideo, addComment, deleteComment, updateViews, updateLikes, doSearch } = require('../model/videos-model.js')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/images/')
@@ -96,6 +96,18 @@ router
             success(res, {
                 'message': 'comment deleted'
             });
+        } else {
+            notFound(res)
+        }
+    })
+
+router
+    .route('/search')
+    .post((req, res) => {
+        const search = req.body;
+        if (search) {
+            const result = doSearch(search);
+            success(res, result);
         } else {
             notFound(res)
         }
