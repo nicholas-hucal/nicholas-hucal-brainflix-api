@@ -10,134 +10,244 @@
 </head>
 
 <body>
-    <h1>BrainFlix API</h1>
-    <h2 id="authentication">Authentication</h2>
-    <ul>
-        <li>To register with the API and get a key, make a GET request to <code>/register</code>
-            <ul>
-                <li>You can do this with the browser and you only need to do it once. Store the key in a global variable
-                    in your website.</li>
-            </ul>
-        </li>
-        <li>You must append <code>?api_key=&lt;your_api_key_here&gt;</code> to each of your API request URLs (except for
-            <code>/register</code>)
-        </li>
-    </ul>
-    <h2 id="api-errors">API Errors</h2>
-    This API may return a 400, 401, 403 or 404 error<h4 id="example-error-body">Example error body</h4>
-            <pre><code class="lang-json">{
-    <span class="hljs-attr">"message"</span>: <span class="hljs-string">"No video with that id exists"</span>
-    }
-    </code></pre>
-    <h2 id="routes">Routes</h2>
-    <h3 id="get-videos-">GET <code>/videos</code></h3>
-    <ul>
-        <li>Returns an array of video objects </li>
-    </ul>
-        Contains only enough information to display in side bar<h4 id="response-body-example">Response body example
-            </h4>
-            <pre><code class="lang-json">[
-      {   
-          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1af0jruup5gu"</span>, 
-          <span class="hljs-attr">"title"</span>: <span class="hljs-string">"BMX Rampage: 2018 Highlights"</span>, 
-          <span class="hljs-attr">"channel"</span>: <span class="hljs-string">"Red Cow"</span>, 
-          <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://i.imgur.com/l2Xfgpl.jpg"</span> 
-      },
-      { 
-          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1ainjruutd1j"</span>, 
-          <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Become A Travel Pro In One Easy Lesson"</span>, 
-          <span class="hljs-attr">"channel"</span>: <span class="hljs-string">"Todd Welch"</span>, 
-          <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://i.imgur.com/5qyCZrD.jpg"</span>
-      }
-    ]
-    </code></pre>
-    <h3 id="get-videos-id-">GET <code>/videos/:id</code></h3>
-    <ul>
-        <li><code>:id</code> must be swapped out with the id of a video as found in the list of videos</li>
-        <li>Returns a detailed object of a single video<ul>
-                <li>Details include the list of comments for that video</li>
-            </ul>
-        </li>
-    </ul>
-        Example response body
-            <pre><code class="lang-json">{ 
-          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1af0jruup5gu"</span>,
-          <span class="hljs-attr">"title"</span>: <span class="hljs-string">"BMX Rampage: 2018 Highlights"</span>,
-          <span class="hljs-attr">"channel"</span>: <span class="hljs-string">"Red Cow"</span>,
-          <span class="hljs-attr">"image"</span>: <span class="hljs-string">"https://i.imgur.com/l2Xfgpl.jpg"</span>,
-          <span class="hljs-attr">"description"</span>: <span class="hljs-string">"On a gusty day in Southern Utah, a group of 25 daring mountain bikers blew the doors off what is possible on two wheels, unleashing some of the biggest moments the sport has ever seen. While mother nature only allowed for one full run before the conditions made it impossible to ride, that was all that was needed for event veteran Kyle Strait, who won the event for the second time -- eight years after his first Red Cow Rampage title"</span>,
-          <span class="hljs-attr">"views"</span>: <span class="hljs-string">"1,001,023"</span>,
-          <span class="hljs-attr">"likes"</span>: <span class="hljs-string">"110,985"</span>,
-          <span class="hljs-attr">"duration"</span>: <span class="hljs-string">"4:01"</span>,
-          <span class="hljs-attr">"video"</span>: <span class="hljs-string">"https://project-2-api.herokuapp.com/stream"</span>,
-          <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1545162149000</span>,
-          <span class="hljs-attr">"comments"</span>: [
-              {
-                  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Micheal Lyons"</span>,
-                  <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"They BLEW the ROOF off at their last show, once everyone started figuring out they were going. This is still simply the greatest opening of concert I have EVER witnessed."</span>,
-                  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1ab6d9f6-da38-456e-9b09-ab0acd9ce818"</span>,
-                  <span class="hljs-attr">"likes"</span>: <span class="hljs-number">0</span>,
-                  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1545162149000</span>
-              },
-              {
-                  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Gary Wong"</span>,
-                  <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"Every time I see him shred I feel so motivated to get off my couch and hop on my board. He’s so talented! I wish I can ride like him one day so I can really enjoy myself!"</span>,
-                  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"cc6f173d-9e9d-4501-918d-bc11f15a8e14"</span>,
-                  <span class="hljs-attr">"likes"</span>: <span class="hljs-number">0</span>,
-                  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1544595784046</span>
-              },
-              {
-                  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Theodore Duncan"</span>,
-                  <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"How can someone be so good!!! You can tell he lives for this and loves to do it every day. Everytime I see him I feel instantly happy! He’s definitely my favorite ever!"</span>,
-                  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"993f950f-df99-48e7-bd1e-d95003cc98f1"</span>,
-                  <span class="hljs-attr">"likes"</span>: <span class="hljs-number">0</span>,
-                  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1542262984046</span>
-              }
-          ] 
-      }
-    </code></pre>
-        
-    <h2 id="the-following-endpoints-are-not-required-to-satisfy-the-requirements-of-sprint-2">The following endpoints
-        are not required to satisfy the requirements of sprint 2</h2>
-    <h3 id="post-videos-id-comments-">POST <code>/videos/:id/comments</code></h3>
-    <ul>
-        <li><code>:id</code> must be swapped out with the numeric id of a video as found in the list of videos</li>
-        <li>Creates a new comment for a specific video</li>
-        <li>Post body example
-            <pre><code>{
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Nigel"</span>,
-      <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"This is a test"</span>
-    }
-    </code></pre>
-        </li>
-    </ul>
-        response body example
-            <pre><code>{
-    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Nigel"</span>,
-    <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"This is a test"</span>,
-    <span class="hljs-attr">"id"</span>: <span class="hljs-number">4</span>,
-    <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1531857374673</span>
-    }
-    </code></pre>
-    
-    <h3 id="delete-videos-videoid-comments-commentid-">DELETE <code>/videos/:videoId/comments/:commentId</code></h3>
-    <ul>
-        <li>Deletes the given comment and returns it in the response body</li>
-        <li><code>:videoId</code> must be swapped out with the numeric id of a video as found in the list of videos</li>
-        <li><code>:commentId</code> must be swapped out with the numeric id of a comment as found in the list of
-            comments for the given video</li>
-        <li><strong>this endpoint is not mandatory</strong>. It is present for those interested in clearing out comments
-            or going beyond the assignment requirements</li>
+    <div>
+        <h1>BrainFlix API</h1>
+        <h2 id="authentication">Authentication</h2>
+        <ul>
+            <li>To register with the API and get a key, make a GET request to <code>/register</code>
+            <li>You can do this with the browser and you only need to do it once. Store the key in a global variable in your website.</li>
+            <li>You must append <code>?api_key=&lt;your_api_key_here&gt;</code> to each of your API request URLs (except for
+                <code>/register</code>)
+            </li>
         </ul>
-        Response body example
-            <pre><code>{
-      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ian"</span>,
-      <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"You could make $5000 a day too!"</span>,
-      <span class="hljs-attr">"id"</span>: <span class="hljs-number">1</span>,
-      <span class="hljs-attr">"timestamp"</span>: <span class="hljs-number">1530744338878</span>
-    }
-    </code></pre>
-        
-    </body>
+        <h2 id="api-errors">API Errors</h2>
+        This API may return a 400, 401, 403 or 404 error
+        <h4 id="example-error-body">Example error body</h4>
+        <pre><code class="lang-json">
+        {
+            "message": "No video with that id exists"
+        }
+        </code></pre>
+        <h2 id="routes">Routes</h2>
+        <h3 id="get-videos-">GET <code>/videos</code></h3>
+        <ul>
+            <li>Returns an array of video objects </li>
+        </ul>
+        <h4 id="response-body-example">Response body example</h4>
+        <pre><code class="lang-json">
+        [
+            {   
+                "id": "1af0jruup5gu",  
+                "title": "BMX Rampage: 2018 Highlights",  
+                "channel": "Red Cow",  
+                "image": "https://i.imgur.com/l2Xfgpl.jpg" 
+            },
+            { 
+                "id": "1ainjruutd1j",  
+                "title": "Become A Travel Pro In One Easy Lesson",  
+                "channel": "Todd Welch",  
+                "image": "https://i.imgur.com/5qyCZrD.jpg"
+            }
+        ]
+        </code></pre>
+        <h3 id="get-videos-id-">POST <code>/videos</code></h3>
+        <ul>
+            <li>Creates a new video object. All details not provided are included in the API. This includes; likes, views, channel, date, video. A random video from a group of five will be appended to the created post.</li>
+        </ul>
+        <pre><code>
+        {
+            "title": "My Post", 
+            "description": "This is a test"
+        }
+        </code></pre>
+        <ul>
+            <li>Returns a detailed object of a single video</li>
+        </ul>
+        <h4 id="response-body-example">Example response body</h4>
+        <pre><code class="lang-json">
+        { 
+            "message": "created new video"
+        }
+        </code></pre>
+        <h3 id="get-videos-id-">GET <code>/videos/:id</code></h3>
+        <ul>
+            <li>Returns a detailed object of a single video</li>
+        </ul>
+        <h4 id="response-body-example">Example response body</h4>
+        <pre><code class="lang-json">
+        { 
+            "id": "1af0jruup5gu", 
+            "title": "BMX Rampage: 2018 Highlights", 
+            "channel": "Red Cow", 
+            "image": "https://i.imgur.com/l2Xfgpl.jpg", 
+            "description": "On a gusty day in Southern Utah, a group of 25 daring mountain bikers blew the doors off what is possible on two wheels, unleashing some of the biggest moments the sport has ever seen. While mother nature only allowed for one full run before the conditions made it impossible to ride, that was all that was needed for event veteran Kyle Strait, who won the event for the second time -- eight years after his first Red Cow Rampage title", 
+            "views": "1,001,023", 
+            "likes": "110,985", 
+            "duration": "4:01", 
+            "video": "https://project-2-api.herokuapp.com/stream", 
+            "timestamp": 1545162149000, 
+            "comments": 
+            [
+                {
+                    "name": "Micheal Lyons", 
+                    "comment": "They BLEW the ROOF off at their last show, once everyone started figuring out they were going. This is still simply the greatest opening of concert I have EVER witnessed.", 
+                    "id": "1ab6d9f6-da38-456e-9b09-ab0acd9ce818", 
+                    "likes": 0, 
+                    "timestamp": 1545162149000,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                },
+                {
+                    "name": "Gary Wong", 
+                    "comment": "Every time I see him shred I feel so motivated to get off my couch and hop on my board. He’s so talented! I wish I can ride like him one day so I can really enjoy myself!", 
+                    "id": "cc6f173d-9e9d-4501-918d-bc11f15a8e14", 
+                    "likes": 0, 
+                    "timestamp": 1544595784046,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                },
+                {
+                    "name": "Theodore Duncan", 
+                    "comment": "How can someone be so good!!! You can tell he lives for this and loves to do it every day. Everytime I see him I feel instantly happy! He’s definitely my favorite ever!", 
+                    "id": "993f950f-df99-48e7-bd1e-d95003cc98f1", 
+                    "likes": 0, 
+                    "timestamp": 1542262984046,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                }
+            ] 
+        }
+        </code></pre>
+        <h3 id="post-videos-id-comments-">POST <code>/videos/:id/comments</code></h3>
+        <ul>
+            <li>Creates a new comment for a specific video</li>
+        </ul>
+        <h4 id="response-body-example">Post body example</h4>
+        <pre><code>
+        {
+            "name": "Nigel", 
+            "comment": "This is a test"
+        }
+        </code></pre>
+            </li>
+        </ul>
+        <h4 id="response-body-example">Example response body</h4>
+        <pre><code>
+        {
+            "name": "Nigel", 
+            "comment": "This is a test", 
+            "id": 4, 
+            "timestamp": 1531857374673,
+            "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+        }
+        </code></pre>
+
+        <h3 id="delete-videos-videoid-comments-commentid-">DELETE <code>/videos/:videoId/comments/:commentId</code></h3>
+        <ul>
+            <li>Deletes the given comment and returns it in the response body</li>
+        </ul>
+        <h4 id="response-body-example">Example response body</h4>
+        <pre><code>
+        {
+            "name": "Ian", 
+            "comment": "You could make $5000 a day too!", 
+            "id": 1, 
+            "timestamp": 1530744338878,
+            "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+        }
+        </code></pre>
+
+        <h3 id="delete-videos-videoid-comments-commentid-">PUT <code>/videos/:videoId/likes</code></h3>
+        <ul>
+            <li>Increments the likes of the selected video by one</li>
+        </ul>
+        <h4 id="response-body-example">Example response body</h4>
+        <pre><code class="lang-json">
+        { 
+            "id": "1af0jruup5gu", 
+            "title": "BMX Rampage: 2018 Highlights", 
+            "channel": "Red Cow", 
+            "image": "https://i.imgur.com/l2Xfgpl.jpg", 
+            "description": "On a gusty day in Southern Utah, a group of 25 daring mountain bikers blew the doors off what is possible on two wheels, unleashing some of the biggest moments the sport has ever seen. While mother nature only allowed for one full run before the conditions made it impossible to ride, that was all that was needed for event veteran Kyle Strait, who won the event for the second time -- eight years after his first Red Cow Rampage title", 
+            "views": "1,001,023", 
+            "likes": "110,985", 
+            "duration": "4:01", 
+            "video": "https://project-2-api.herokuapp.com/stream", 
+            "timestamp": 1545162149000, 
+            "comments": 
+            [
+                {
+                    "name": "Micheal Lyons", 
+                    "comment": "They BLEW the ROOF off at their last show, once everyone started figuring out they were going. This is still simply the greatest opening of concert I have EVER witnessed.", 
+                    "id": "1ab6d9f6-da38-456e-9b09-ab0acd9ce818", 
+                    "likes": 0, 
+                    "timestamp": 1545162149000,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                },
+                {
+                    "name": "Gary Wong", 
+                    "comment": "Every time I see him shred I feel so motivated to get off my couch and hop on my board. He’s so talented! I wish I can ride like him one day so I can really enjoy myself!", 
+                    "id": "cc6f173d-9e9d-4501-918d-bc11f15a8e14", 
+                    "likes": 0, 
+                    "timestamp": 1544595784046,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                },
+                {
+                    "name": "Theodore Duncan", 
+                    "comment": "How can someone be so good!!! You can tell he lives for this and loves to do it every day. Everytime I see him I feel instantly happy! He’s definitely my favorite ever!", 
+                    "id": "993f950f-df99-48e7-bd1e-d95003cc98f1", 
+                    "likes": 0, 
+                    "timestamp": 1542262984046,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                }
+            ] 
+        }
+        </code></pre>
+
+        <h3 id="delete-videos-videoid-comments-commentid-">PUT <code>/videos/:videoId/views</code></h3>
+        <ul>
+            <li>Increments the views of the selected video by one</li>
+        </ul>
+        <h4 id="response-body-example">Example response body</h4>
+        <pre class="lang-json">
+        { 
+            "id": "1af0jruup5gu", 
+            "title": "BMX Rampage: 2018 Highlights", 
+            "channel": "Red Cow", 
+            "image": "https://i.imgur.com/l2Xfgpl.jpg", 
+            "description": "On a gusty day in Southern Utah, a group of 25 daring mountain bikers blew the doors off what is possible on two wheels, unleashing some of the biggest moments the sport has ever seen. While mother nature only allowed for one full run before the conditions made it impossible to ride, that was all that was needed for event veteran Kyle Strait, who won the event for the second time -- eight years after his first Red Cow Rampage title", 
+            "views": "1,001,023", 
+            "likes": "110,985", 
+            "duration": "4:01", 
+            "video": "https://project-2-api.herokuapp.com/stream", 
+            "timestamp": 1545162149000, 
+            "comments": 
+            [
+                {
+                    "name": "Micheal Lyons", 
+                    "comment": "They BLEW the ROOF off at their last show, once everyone started figuring out they were going. This is still simply the greatest opening of concert I have EVER witnessed.", 
+                    "id": "1ab6d9f6-da38-456e-9b09-ab0acd9ce818", 
+                    "likes": 0, 
+                    "timestamp": 1545162149000,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                },
+                {
+                    "name": "Gary Wong", 
+                    "comment": "Every time I see him shred I feel so motivated to get off my couch and hop on my board. He’s so talented! I wish I can ride like him one day so I can really enjoy myself!", 
+                    "id": "cc6f173d-9e9d-4501-918d-bc11f15a8e14", 
+                    "likes": 0, 
+                    "timestamp": 1544595784046,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                },
+                {
+                    "name": "Theodore Duncan", 
+                    "comment": "How can someone be so good!!! You can tell he lives for this and loves to do it every day. Everytime I see him I feel instantly happy! He’s definitely my favorite ever!", 
+                    "id": "993f950f-df99-48e7-bd1e-d95003cc98f1", 
+                    "likes": 0, 
+                    "timestamp": 1542262984046,
+                    "avatar": "http://localhost:8080/avatars/faces_008.jpeg"
+                }
+            ] 
+        }
+        </pre>
+    </div>
+</body>
 
 </html>
