@@ -20,11 +20,11 @@ const getVideoList = () => {
 
 const randomVideoList = () => {
     return [
-        `http://localhost:${process.env.PORT}/videos/coding`,
-        `http://localhost:${process.env.PORT}/videos/hike`,
-        `http://localhost:${process.env.PORT}/videos/painting`,
-        `http://localhost:${process.env.PORT}/videos/roadtrip`,
-        `http://localhost:${process.env.PORT}/videos/travel`,
+        `https://afternoon-falls-77313.herokuapp.com/videos/coding`,
+        `https://afternoon-falls-77313.herokuapp.com/videos/hike`,
+        `https://afternoon-falls-77313.herokuapp.com/videos/painting`,
+        `https://afternoon-falls-77313.herokuapp.com/videos/roadtrip`,
+        `https://afternoon-falls-77313.herokuapp.com/videos/travel`,
     ]
 }
 
@@ -41,7 +41,7 @@ const addVideo = (video, file) => {
     const newVideo = {
         "title": video.title,
         "channel": "MohanMuruge",
-        "image": `http://localhost:${process.env.PORT}/images/` + file.filename,
+        "image": `https://afternoon-falls-77313.herokuapp.com/images/` + file.filename,
         "description" : video.description,
         "views": "0",
         "likes": "0",
@@ -79,7 +79,7 @@ const addComment = (comment, videoId) => {
         "comment": comment.comment,
         "likes": 0,
         "timestamp": Date.now(),
-        "avatar": `http://localhost:${process.env.PORT}/avatars/Mohan-muruge.jpg`
+        "avatar": `https://afternoon-falls-77313.herokuapp.com/avatars/Mohan-muruge.jpg`
     }
     const existing = getVideos();
     const foundIndex = existing.findIndex(ex => ex.id === videoId);
