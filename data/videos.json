@@ -1,27 +1,5 @@
 [
     {
-        "title": "This is an uploaded video",
-        "channel": "MohanMuruge",
-        "image": "https://afternoon-falls-77313.herokuapp.com/images/1647211877937.png",
-        "description": "This is a dynamically added video. It includes a poster image loaded through the upload page. A random video is assigned on the backend to be displayed/played from the server. You can increment the view count by playing the video, and increment the like count by clicking on the heart. ",
-        "views": "23",
-        "likes": "32",
-        "duration": "2:43",
-        "video": "https://afternoon-falls-77313.herokuapp.com/videos/hike",
-        "timestamp": 1647211877945,
-        "comments": [
-            {
-                "id": "50a85f42-82d7-4b88-a4ad-c374da8972ba",
-                "name": "Mohan Muruge",
-                "comment": "Comments can be added to the newly created video by adding details in the join conversation area.",
-                "likes": 0,
-                "timestamp": 1647211918364,
-                "avatar": "https://afternoon-falls-77313.herokuapp.com/avatars/Mohan-muruge.jpg"
-            }
-        ],
-        "id": "9db80cd4-8bf4-403f-b6a3-2576e2d2c05a"
-    },
-    {
         "title": "BMX Rampage: 2021 Highlights",
         "channel": "Red Cow",
         "image": "https://afternoon-falls-77313.herokuapp.com/images/l2Xfgpl.jpeg",
@@ -55,14 +33,6 @@
                 "timestamp": 1626011132000,
                 "avatar": "https://afternoon-falls-77313.herokuapp.com/avatars/faces_006.jpeg",
                 "id": "e7490bdd-5a74-4338-a367-9bec98474a72"
-            },
-            {
-                "id": "3889cde0-440c-434f-badc-b7a27d799ef9",
-                "name": "Mohan Muruge",
-                "comment": "Comments by default will be added by the logged in user which is currently Mohan Muruge",
-                "likes": 0,
-                "timestamp": 1647212006939,
-                "avatar": "https://afternoon-falls-77313.herokuapp.com/avatars/Mohan-muruge.jpg"
             }
         ],
         "id": "84e96018-4022-434e-80bf-000ce4cd12b8"
